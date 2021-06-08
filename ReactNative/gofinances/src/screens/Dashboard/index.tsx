@@ -1,5 +1,6 @@
 import React from 'react';
 import { HighLightCard } from '../../components/HighLightCard';
+import {TransactionCard} from '../../components/TransactionCard'
 import {
     Container,
     Header,
@@ -10,10 +11,38 @@ import {
     UserName,
     UserWrapper,
     Icon,
-    HighLightCards
+    HighLightCards,
+    Transactions,
+    Title,
+    TransactionList
 } from './styles'
 
 export function Dashboard(){
+    const data = [{
+        title:"Desenvolvimento de site",
+        amount:"R$ 12.000,00",
+        category:{
+            name: 'Vendas',
+            icon: 'dollar-sign'
+        },
+        date:"13/04/2020"
+    },{
+        title:"Desenvolvimento de site",
+        amount:"R$ 12.000,00",
+        category:{
+            name: 'Vendas',
+            icon: 'dollar-sign'
+        },
+        date:"13/04/2020"
+    },{
+        title:"Desenvolvimento de site",
+        amount:"R$ 12.000,00",
+        category:{
+            name: 'Vendas',
+            icon: 'dollar-sign'
+        },
+        date:"13/04/2020"
+    }]
     return (
         <Container>
             <Header>
@@ -49,6 +78,21 @@ export function Dashboard(){
                     lastTrasaction="01 à 16 de abril"
                 />
             </HighLightCards>
+
+            <Transactions>
+                <Title>Listagem</Title>
+                <TransactionList
+                    data={data}
+                    renderItem={({item}) => <TransactionCard data={item}/>}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{
+                        paddingBottom: 10
+                    }}
+                >
+                    
+                </TransactionList>
+                
+            </Transactions>
         </Container>
     )
 }
