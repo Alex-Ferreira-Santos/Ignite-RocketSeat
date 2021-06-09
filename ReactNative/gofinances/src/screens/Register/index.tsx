@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Keyboard, Modal,TouchableWithoutFeedback,Alert} from 'react-native'
 import {useForm} from 'react-hook-form'
 import * as Yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Container, Header, Title,Form, Fields,TransactionsTypes } from './styles';
 
@@ -44,6 +45,7 @@ export function Register() {
       resolver: yupResolver(schema)
     })
 
+  const dataKey = '@gofinance:transactions'
 
   function handleTransactionTypeSelect(type: 'up' | 'down'){
     setTransactionType(type)
@@ -57,7 +59,7 @@ export function Register() {
     setCategoryModalOpen(true)
   }
 
-  function handleRegister(form: FormData){
+  async function handleRegister(form: FormData){
     if(!transactionType){
       return Alert.alert('Selecione o tipo da transação')
     }
@@ -72,8 +74,24 @@ export function Register() {
       transactionType,
       category: category.key
     }
-    console.log(data)
+
+    try{
+      
+      await AsyncStorage.setItem(dataKey, JSON.stringify(data))
+    }catch(error){
+      console.log(error)
+      Alert.alert('Não foi possível salvar')
+    }
   }
+ 
+  useEffect(()=>{
+    async function loadData(){
+      const data = await AsyncStorage.getItem(dataKey)
+      console.log(JSON.parse(data!))
+    }
+    loadData()
+    
+  },[])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -111,7 +129,7 @@ export function Register() {
             />
             <TransactionTypeButton
               type="down"
-              title="Outcome"
+              title="Outcome"          
               onPress={() => handleTransactionTypeSelect('down')}
               isActive={transactionType === 'down'}
             />
@@ -124,7 +142,7 @@ export function Register() {
           
         </Fields>
         
-        <Button title="enviar" onPress={handleSubmit(handleRegister)}/>
+        <Button title="enviar"  onPress={handleSubmit(handleRegister)}/>
       </Form>
 
       <Modal visible={categoryModalOpen}>
