@@ -1,14 +1,16 @@
-import React,{useEffect, useState} from 'react';
+import React,{useCallback, useEffect, useState} from 'react';
+import {ActivityIndicator} from 'react-native'
 import { HistoryCard } from '../../components/HistoryCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {VictoryPie} from 'victory-native'
 import {useTheme} from 'styled-components'
-import { Container,Header, Title, Content,ChartContainer,MonthSelect,MonthSelectButton,MonthSelectIcon,Month} from './styles';
+import { Container,Header, Title, Content,ChartContainer,MonthSelect,MonthSelectButton,MonthSelectIcon,Month, LoadContainer} from './styles';
 import { categories } from '../../utils/categories';
 import { RFValue } from 'react-native-responsive-fontsize';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs'
 import {addMonths, subMonths,format} from 'date-fns'
 import {ptBR} from 'date-fns/locale'
+import { useFocusEffect } from '@react-navigation/native';
 
 interface TransactionData{
   type: 'positive' | 'negative'
@@ -29,6 +31,7 @@ interface CategoryData{
 }
 
 export function Resume() {
+  const [isLoading, setIsLoading] = useState(false)
   const [selectedDate,setSelectedDate] = useState(new Date())
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([])
 
@@ -43,6 +46,7 @@ export function Resume() {
   }
 
   async function loadData(){
+    setIsLoading(true)
     try{
       const dataKey = '@gofinance:transactions'
       const response = await AsyncStorage.getItem(dataKey)
@@ -94,20 +98,29 @@ export function Resume() {
 
       })
       setTotalByCategories(totalByCategory)
+      setIsLoading(false)
     }catch(err){
       console.log(err)
     }
   }
 
-  useEffect(()=>{
+  useFocusEffect(useCallback(() => {
     loadData()
-  },[selectedDate])
+},[selectedDate]))
+
   return (
     <Container>
+
       <Header>
         <Title>Resumo por categoria</Title>
       </Header>
-
+      {isLoading ? 
+      <LoadContainer>
+        <ActivityIndicator 
+          color={theme.colors.primary}
+          size='large'
+        />
+      </LoadContainer> :
       <Content
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -138,7 +151,7 @@ export function Resume() {
                 fill: theme.colors.shape
               }
             }}
-            labelRadius={50}
+            labelRadius={70}
             x='percentFormatted'
             y='total'
           />
@@ -152,7 +165,7 @@ export function Resume() {
           />
         ))}
       </Content>
-      
+      }
     </Container>
   );
 };
