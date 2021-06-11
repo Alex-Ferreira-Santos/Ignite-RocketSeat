@@ -59,7 +59,8 @@ export function Dashboard(){
     }
     
     async function loadTransactions(){
-        const dataKey = '@gofinance:transactions'
+        
+        const dataKey =`@gofinance:transactions_user:${user.id}`
         const response = await AsyncStorage.getItem(dataKey)
         
         const transactions = response ? JSON.parse(response) : []
