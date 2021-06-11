@@ -22,6 +22,7 @@ import {
     LoadContainer
 } from './styles'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useAuth } from '../../hooks/auth';
 
 export interface DataListProps extends TransactionCardProps {
     id: string
@@ -44,6 +45,7 @@ export function Dashboard(){
     const [highLightData,setHighLightData] = useState<HighlightData>({} as HighlightData)
     
     const theme = useTheme()
+    const {signOut,user} = useAuth()
 
     function getLastTransactionDate(
         collection: DataListProps[],
@@ -147,13 +149,13 @@ export function Dashboard(){
             <Header>
                 <UserWrapper>
                     <UserInfo>
-                        <Photo source={{uri:'https://avatars.githubusercontent.com/u/64551315?v=4'}}/>
+                        <Photo source={{uri:user.photo}}/>
                         <User>
                             <UserGreeting>Olá</UserGreeting>
-                            <UserName>Alex</UserName>
+                            <UserName>{user.name}</UserName>
                         </User>
                     </UserInfo>
-                    <LogoutButton onPress={()=>{}}>
+                    <LogoutButton onPress={signOut}>
                         <Icon name='power'/>
                     </LogoutButton>
                 </UserWrapper>
