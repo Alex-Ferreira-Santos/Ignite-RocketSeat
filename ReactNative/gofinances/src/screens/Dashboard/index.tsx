@@ -51,8 +51,14 @@ export function Dashboard(){
         collection: DataListProps[],
         type: 'positive' | 'negative'
     ){
+        const collectionFiltered = collection.filter( transactions => transactions.type == type)
+
+        if(collectionFiltered.length === 0){
+            return 0
+        }
+       
         const lastTrasaction = new Date(Math.max.apply(Math, collection
-            .filter(transaction => transaction.type === type)
+            .filter(transaction => collectionFiltered)
             .map(transaction => new Date(transaction.date).getTime())))
         
         return `${lastTrasaction.getDate()} de ${lastTrasaction.toLocaleString('pt-BR',{month: 'long'})}`
@@ -100,7 +106,7 @@ export function Dashboard(){
         const lastTrasactionEntries = getLastTransactionDate( transactions, 'positive')
 
         const lastTrasactionExpensives = getLastTransactionDate( transactions, 'negative')
-        const totalInterval = ` 01 a ${lastTrasactionExpensives}`
+        const totalInterval = lastTrasactionExpensives === 0 ? 'Não há transações' : ` 01 a ${lastTrasactionExpensives}`
         const total = entriesTotal - expensiveTotal
 
         setHighLightData({
@@ -109,14 +115,14 @@ export function Dashboard(){
                     style: 'currency',
                     currency: 'BRL'
                 }),
-                lastTrasaction: `Última entrada dia ${lastTrasactionEntries}`
+                lastTrasaction: lastTrasactionEntries === 0 ? 'Não há transações' : `Última entrada dia ${lastTrasactionEntries}`
             },
             expensives:{
                 amount: expensiveTotal.toLocaleString('pt-BR',{
                     style: 'currency',
                     currency: 'BRL'
                 }),
-                lastTrasaction: `Última saída dia ${lastTrasactionExpensives}`
+                lastTrasaction: lastTrasactionExpensives === 0 ? 'Não há transações' : `Última saída dia ${lastTrasactionExpensives}`
             },
             total:{
                 amount: total.toLocaleString('pt-BR',{
