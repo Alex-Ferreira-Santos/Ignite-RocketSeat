@@ -2,6 +2,7 @@ import React from 'react';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 import { Accessory } from '../../components/Accessory';
+import { Button } from '../../components/Button'
 import SpeedSvg from '../../assets/speed.svg'
 import AccelerationSvg from '../../assets/acceleration.svg'
 import ForceSvg from '../../assets/force.svg'
@@ -9,7 +10,7 @@ import GasolineSvg from '../../assets/gasoline.svg'
 import ExchangeSvg from '../../assets/exchange.svg'
 import PeopleSvg from '../../assets/people.svg'
 
-import { Container,Header,CarImages,Content,Details,Description,Brand,Name,Rent,Period,Price,About, Accessories} from './styles';
+import { Container,Header,CarImages,Content,Details,Description,Brand,Name,Rent,Period,Price,About, Accessories,Footer} from './styles';
 
 export function CarDetails() {
   return (
@@ -47,6 +48,10 @@ export function CarDetails() {
         Este é automóvel desportivo. Surgiu do lendário touro de lide indultado na praça Real Maestranza de Sevilla. É um belíssimo carro para quem gosta de acelerar
       </About>
     </Content>
+
+    <Footer>
+      <Button title='Confirmar' />
+    </Footer>
     </Container>
   );
 };
