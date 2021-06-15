@@ -6,7 +6,7 @@ export default{
         text: '#7a7a80',
         text_detail: '#aeaeb3',
         title:'#47474D',
-        line: 'ebebf9',
+        line: '#ebebf9',
         main: '#dc1637',
         main_light: '#fdedef',
         success: '#03b252',
