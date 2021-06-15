@@ -11,8 +11,15 @@ import ExchangeSvg from '../../assets/exchange.svg'
 import PeopleSvg from '../../assets/people.svg'
 
 import { Container,Header,CarImages,Content,Details,Description,Brand,Name,Rent,Period,Price,About, Accessories,Footer} from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 export function CarDetails() {
+  const navigation = useNavigation()
+
+  function handleConfirmRental(){
+    navigation.navigate('scheduling')
+  }
+
   return (
     <Container>
       <Header>
@@ -50,7 +57,7 @@ export function CarDetails() {
     </Content>
 
     <Footer>
-      <Button title='Confirmar' />
+      <Button title='Escolher periodo de aluguel' onPress={handleConfirmRental}/>
     </Footer>
     </Container>
   );

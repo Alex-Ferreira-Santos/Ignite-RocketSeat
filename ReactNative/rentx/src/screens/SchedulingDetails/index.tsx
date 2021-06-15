@@ -14,9 +14,15 @@ import PeopleSvg from '../../assets/people.svg'
 import { Container,Header,CarImages,Content,Details,Description,Brand,Name,Rent,Period,Price, Accessories,Footer,RentalPeriod,CalendarIcon,DateInfo,DateTitle,DateValue,RentalPrice,RentalPriceLabel,RentalPriceDetails,RentalPriceQuota,RentalPriceTotal,} from './styles';
 import { RFValue } from 'react-native-responsive-fontsize';
 import {useTheme} from 'styled-components'
+import { useNavigation } from '@react-navigation/native';
 
 export function SchedulingDetails() {
   const theme = useTheme()
+  const navigation = useNavigation()
+
+  function handleConfirmRental(){
+    navigation.navigate('schedulingComplete')
+  }
   return (
     <Container>
       <Header>
@@ -83,7 +89,11 @@ export function SchedulingDetails() {
     </Content>
 
     <Footer>
-      <Button title='Confirmar' />
+      <Button 
+        title='Alugar agora' 
+        color={theme.colors.success} 
+        onPress={handleConfirmRental}
+      />
     </Footer>
     </Container>
   );
