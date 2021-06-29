@@ -9,11 +9,13 @@ import {Input} from '../../components/Input'
 import { PasswordInput } from '../../components/PasswordInput';
 
 import theme from '../../styles/theme';
+import { useNavigation } from '@react-navigation/native';
 
 
 export function SignIn() {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
+  const navigation = useNavigation()
 
   async function handleSignIn(){
     try{
@@ -35,6 +37,10 @@ export function SignIn() {
         Alert.alert('Erro na autenticação', 'ocorreu um erro ao fazer login, verifique as credenciais')
       }
     }
+  }
+
+  function handleNewAccount(){
+    navigation.navigate('SignUpFirstStep')
   }
 
   return (
@@ -76,7 +82,7 @@ export function SignIn() {
             <Button 
               title='Criar conta gratuita' 
               color={theme.colors.background_secondary}
-              onPress={()=>{}} 
+              onPress={handleNewAccount} 
               light
               enabled={true} 
               loading={false}
