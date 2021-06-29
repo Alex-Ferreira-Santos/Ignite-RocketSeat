@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {StatusBar, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native'
 import { Container, Header, Title, Subtitle, Form, Footer } from './styles';
 import * as Yup from 'yup'
-
+import {useAuth} from '../../hooks/auth'
 
 import {Button} from '../../components/Button'
 import {Input} from '../../components/Input'
@@ -16,6 +16,7 @@ export function SignIn() {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const navigation = useNavigation()
+  const {signIn} = useAuth()
 
   async function handleSignIn(){
     try{
@@ -29,7 +30,8 @@ export function SignIn() {
 
     await schema.validate({email, password})
     Alert.alert('Tudo certo')
-    //fazer login
+
+    signIn({email, password})
     }catch(err){
       if(err instanceof Yup.ValidationError){
         Alert.alert('Opa', err.message)
