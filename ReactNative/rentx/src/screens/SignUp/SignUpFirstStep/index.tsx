@@ -9,7 +9,6 @@ import { Input } from '../../../components/Input'
 import { Button } from '../../../components/Button'
 
 import { Container, Header, Steps, Title, Subtitle, Form, FormTitle } from './styles';
-import { useAuth } from '../../../hooks/auth';
 
 export function SignUpFirstStep() {
   const [name,setName] = useState('')
@@ -17,8 +16,6 @@ export function SignUpFirstStep() {
   const [driverLicense,setDriverLicense] = useState('')
 
   const navigation = useNavigation()
-  const {user} = useAuth()
-  console.log('USUÁRIO AUTENTICADO',user)
 
   function handleBack(){
     navigation.goBack()
