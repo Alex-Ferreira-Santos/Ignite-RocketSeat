@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React,{useState} from 'react';
 import {Feather} from '@expo/vector-icons'
 import { useTheme} from 'styled-components'
 
 import { BackButton } from '../../components/BackButton'
 
-import { Container, Header, HeaderTop, HeaderTitle,LogoutButton,PhotoContainer,Photo, PhotoButton } from './styles';
+import { Container, Header, HeaderTop, HeaderTitle,LogoutButton,PhotoContainer,Photo, PhotoButton,Content, Options, Option, OptionTitle, } from './styles';
 
 export function Profile() {
+  const [option,setOption] = useState<'dataEdit' | 'passwordEdit'>('dataEdit')
   const theme = useTheme()
   const navigation = useNavigation()
 
@@ -17,6 +18,10 @@ export function Profile() {
 
   function handleSignOut(){
 
+  }
+
+  function handleOptionsChange(optionSelected: 'dataEdit' | 'passwordEdit'){
+    setOption(optionSelected)
   }
 
   return (
@@ -47,6 +52,23 @@ export function Profile() {
           </PhotoButton>
         </PhotoContainer>
       </Header>
+
+      <Content>
+        <Options>
+          <Option 
+            active={option === 'dataEdit'}
+            onPress={() => handleOptionsChange('dataEdit')}
+          >
+            <OptionTitle active={option === 'dataEdit'}>Dados</OptionTitle>
+          </Option>
+          <Option 
+            active={option === 'passwordEdit'}
+            onPress={() => handleOptionsChange('passwordEdit')}
+          > 
+            <OptionTitle active={option === 'passwordEdit'}>Trocar senha</OptionTitle>
+          </Option>
+        </Options>
+      </Content>
     </Container>
   );
 };
