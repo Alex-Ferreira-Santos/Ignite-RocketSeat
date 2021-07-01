@@ -4,6 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {Home} from '../screens/Home'
 import {MyCars} from '../screens/MyCars';
 import { AppStackRoutes } from './app.stack.routes';
+import {Profile} from '../screens/Profile';
 
 import HomeSvg from '../assets/home.svg';
 import CarSvg from '../assets/car.svg';
@@ -38,8 +39,8 @@ export function AppTabRoutes(){
                 }}
             />
             <Screen 
-                name="profile" 
-                component={Home}
+                name="myCars" 
+                component={MyCars}
                 options={{
                     tabBarIcon: ({color}) => (
                         <CarSvg width={24} height={24} fill={color}/>
@@ -47,14 +48,15 @@ export function AppTabRoutes(){
                 }}
             />
             <Screen 
-                name="myCars" 
-                component={MyCars}
+                name="profile" 
+                component={Profile}
                 options={{
                     tabBarIcon: ({color}) => (
                         <PeopleSvg width={24} height={24} fill={color}/>
                     )
                 }}
             />
+            
         </Navigator>
     )
 }
