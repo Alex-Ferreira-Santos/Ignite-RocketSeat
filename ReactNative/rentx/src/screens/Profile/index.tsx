@@ -14,6 +14,7 @@ import { Button } from '../../components/Button'
 
 import { Container, Header, HeaderTop, HeaderTitle,LogoutButton,PhotoContainer,Photo, PhotoButton,Content, Options, Option, OptionTitle, Section } from './styles';
 import { useAuth } from '../../hooks/auth';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 export function Profile() {
   const { user, signOut, updateUser } = useAuth()
@@ -24,13 +25,18 @@ export function Profile() {
 
   const theme = useTheme()
   const navigation = useNavigation()
+  const netInfo = useNetInfo()
   
   function handleBack(){
     navigation.goBack()
   }
 
   function handleOptionsChange(optionSelected: 'dataEdit' | 'passwordEdit'){
-    setOption(optionSelected)
+    if(netInfo.isConnected === false && optionSelected === 'passwordEdit'){
+      Alert.alert('Você está offline','Para mudar a senha, conecte-se a Internet')
+    }else{
+      setOption(optionSelected)
+    }
   }
 
   async function handleAvatarSelect(){
