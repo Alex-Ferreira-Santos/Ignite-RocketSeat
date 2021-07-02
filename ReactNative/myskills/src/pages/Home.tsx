@@ -19,7 +19,7 @@ interface SkillData {
 export function Home(){
   const [newSkill, setNewSkill] = useState('');
   const [mySkills, setMySkills] = useState<SkillData[]>([]);  
-  const [gretting, setGretting] = useState('');
+  const [greeting, setGreeting] = useState('');
 
   
   function handleAddNewSkill(){    
@@ -42,12 +42,12 @@ export function Home(){
       const currentHour = new Date().getHours();      
       
       if(currentHour < 12){
-          setGretting('Good morning');
+          setGreeting('Good morning');
       }
       else if(currentHour >= 12 && currentHour < 18){
-          setGretting('Good afternoon');
+          setGreeting('Good afternoon');
       }else{
-          setGretting('Good night');
+          setGreeting('Good night');
       }
       
   }, [])
@@ -56,12 +56,12 @@ export function Home(){
       <View style={styles.container}>      
         
 
-        <Text style={styles.title}>
+        <Text style={styles.title} testID='welcome'>
             Welcome, Alex
         </Text>  
 
         <Text style={styles.greetings}>
-            { gretting }       
+            { greeting }       
         </Text>   
 
         <TextInput 
