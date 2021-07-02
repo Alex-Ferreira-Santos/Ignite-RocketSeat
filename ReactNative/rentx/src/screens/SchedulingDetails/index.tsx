@@ -48,7 +48,7 @@ export function SchedulingDetails() {
       end_date: new Date(dates[dates.length - 1]),
       total: rentTotal
     }).then(() => navigation.navigate('Confirmation',{
-      nextScreenRoute: 'Home',
+      nextScreenRoute: 'home',
       title: 'Carro alugado',
       message: `Agora você só precisa ir \naté a concessionária da RENTX\n pegar o seu automóvel`
     }))
