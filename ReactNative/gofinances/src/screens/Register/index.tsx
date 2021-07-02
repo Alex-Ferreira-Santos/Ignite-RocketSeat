@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import uuid from 'react-native-uuid'
-import {useNavigation} from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 
 import { Container, Header, Title,Form, Fields,TransactionsTypes } from './styles';
 
@@ -154,6 +154,7 @@ export function Register() {
           <CategorySelectButton 
             title={category.name}
             onPress={handleOpenSelectCategoryModal}
+            testID='button-category'
           />
           
         </Fields>
@@ -161,7 +162,7 @@ export function Register() {
         <Button title="enviar"  onPress={handleSubmit(handleRegister)}/>
       </Form>
 
-      <Modal visible={categoryModalOpen}>
+      <Modal testID='modal-category' visible={categoryModalOpen}>
         <CategorySelect 
           category={category}
           setCategory={setCategory}
