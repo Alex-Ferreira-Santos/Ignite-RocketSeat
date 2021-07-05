@@ -3,6 +3,12 @@ import { View, Text, TextInput, StyleSheet, Button, ScrollView } from 'react-nat
 
 import {FriendList} from '../Components/FriendList'
 
+interface Data{
+    id: string
+    name: string
+    likes: number
+}
+
 export function Home(){
     const [name,setName] = useState('')
     const [friends,setFriends] = useState([])
@@ -10,7 +16,17 @@ export function Home(){
     async function handleSearch(){
         const response = await fetch(`http://192.168.3.103:3333/friends?q=${name}`)
         const data = await response.json()
-        setFriends(data)
+
+        const formattedDate = data.map((item:Data) => {
+            return {
+                id: item.id,
+                name: item.name,
+                likes: item.likes,
+                online: `${new Date().getHours()}:${new Date().getMinutes()}`
+            }
+        })
+
+        setFriends(formattedDate)
     }
 
     const handleFollow = useCallback(()=>{
