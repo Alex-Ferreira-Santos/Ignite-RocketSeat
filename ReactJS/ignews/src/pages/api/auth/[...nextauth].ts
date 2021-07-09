@@ -39,11 +39,9 @@ export default NextAuth({
             
           )
         )
-        console.log(userActiveSubscription)
 
         return {...session, activeSubscription: userActiveSubscription}
       }catch(err){
-        console.log(err.message)
         return {...session, activeSubscription: null}
       }
       
