@@ -82,21 +82,6 @@ export default function UserList(){
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                <Tr>
-                                    <Td px={['4','4','6']}>
-                                        <Checkbox colorScheme='pink'/>
-                                    </Td>
-                                    <Td>
-                                        <Box>
-                                            <Text fontWeight='bold'>Alex Ferreira</Text>
-                                            <Text fontSize='sm' color='gray.300'>alexfstos@gmail.com</Text>
-                                        </Box>
-                                    </Td>
-                                    { isWideVersion && <Td>04 de Abril, 2021</Td>}
-                                    <Td>
-                                    
-                                    </Td>
-                                </Tr>
                                 {data.users.map( user => {
                                     return(
                                         <Tr key={user.id}>
