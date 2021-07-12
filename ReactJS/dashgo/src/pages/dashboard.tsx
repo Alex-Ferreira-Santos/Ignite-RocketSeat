@@ -65,7 +65,7 @@ export default function Dashboard() {
     <Flex direction='column' h='100vh'>
       <Header/>
 
-      <Flex w='100%' my='6' maxW={1480} mx='auto' px='3'>
+      <Flex w='100%' my='6' maxW={1480} mx='auto' px={['3','6']}>
         <Sidebar/>
 
         <SimpleGrid flex='1' gap='4' minChildWidth='320px' align='flex-start'>
